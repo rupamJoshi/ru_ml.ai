@@ -1,0 +1,24 @@
+#include<iostream>
+#include<thread>
+#include<chrono>
+using namespace std;
+void kalia(int p,int q)
+{
+	for(int i=p;i<=q;i++) cout<<i<<" ";
+}
+
+int main()
+{
+	int x=1;
+	int y=150000;
+	auto start=chrono::high_resolution_clock::now();
+	thread t(kalia,x,y); // kalia doesn't collect by reference
+	
+	
+	t.join(); // wait for thread t to complete join the main thread
+	auto end=chrono::high_resolution_clock::now();
+	chrono::duration<double> timeElapsed=end-start;
+	cout<<"Time taken : "<<timeElapsed.count()<<endl;
+
+	return 0;
+}
